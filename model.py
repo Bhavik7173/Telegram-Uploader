@@ -17,7 +17,7 @@ config = {
     "api_id": int(os.getenv("TELEGRAM_API_ID")),
     "api_hash": os.getenv("TELEGRAM_API_HASH"),
     "phone": os.getenv("TELEGRAM_PHONE"),
-    "session_name": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/session/latest_session.session",
+    "session_name": "latest_session.session",
     "base_path": "D:/TeraBoxDownload/Story Saver",
     "log_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/upload_log.csv",
     "temp_log_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/temp_upload_log.csv",
