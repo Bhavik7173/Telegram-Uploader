@@ -13,10 +13,15 @@ MEDIA_GROUP_TYPES = ('.jpg', '.jpeg', '.png', '.mp4', '.mov', '.mkv', '.pdf', '.
 OTHER_TYPES = ('.zip', '.rar', '.7z', '.txt', '.xls', '.ppt', '.exe')
 SUPPORTED_EXTENSIONS = MEDIA_GROUP_TYPES + OTHER_TYPES
 
+session_name = config["session_name"]
+session_folder = os.path.join(os.getcwd(), "session")
+os.makedirs(session_folder, exist_ok=True)
+session_path = os.path.join(session_folder, session_name)
+
 async def handle_upload(df_upload, mode, filter_method="None", filter_params=None):
     logs = []
     filter_params = filter_params or {}
-    client = TelegramClient(config["session_name"], config["api_id"], config["api_hash"])
+    client = TelegramClient(session_path, config["api_id"], config["api_hash"])
     await client.start(phone=config["phone"])
     st.success("✅ Logged into Telegram")
 
