@@ -1,7 +1,7 @@
 import streamlit as st
 from telethon import TelegramClient, errors
 import asyncio
-from model import config, filter_files,convert_to_jpg
+# from model import config, filter_files,convert_to_jpg
 
 api_id = 24244805
 api_hash = '8cf2f233f46fbdd89440589018a79feb'
