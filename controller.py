@@ -5,7 +5,7 @@ from datetime import datetime, date
 from telethon import TelegramClient
 from telethon.errors import FloodWaitError
 from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
-from model import config, filter_files,convert_to_jpg,base_path
+from model import config, filter_files,convert_to_jpg, base_path
 import streamlit as st
 
 # === SUPPORTED TYPES ===

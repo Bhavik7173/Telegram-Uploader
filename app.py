@@ -40,10 +40,46 @@ else:
 if nav == "Dashboard":
     st.markdown("# 📊 Dashboard")
 
-    folders = len(os.listdir(base_path)) if os.path.exists(base_path) else 0
-    files = sum(len(f) for _, _, f in os.walk(base_path)) if os.path.exists(base_path) else 0
-    uploads = len(open(config["cache_file"]).readlines()) if os.path.exists(config["cache_file"]) else 0
+        # === SAFE FOLDER / FILE COUNT FUNCTIONS ===
+    def safe_count_dirs(path):
+        try:
+            if path and os.path.isdir(path):
+                return len(os.listdir(path))
+        except Exception as e:
+            st.warning(f"⚠️ Could not access directory list: {e}")
+        return 0
+
+    def safe_count_files(path):
+        try:
+            if path and os.path.isdir(path):
+                return sum(len(files) for _, _, files in os.walk(path))
+        except Exception as e:
+            st.warning(f"⚠️ Could not walk directory: {e}")
+        return 0
+
+    # === USE FALLBACK FOR base_path ===
+    # If base_path is missing, use /tmp so Render doesn't break
+    safe_base_path = base_path if base_path and os.path.isdir(base_path) else "/tmp"
+    if not os.path.isdir(safe_base_path):
+        os.makedirs(safe_base_path, exist_ok=True)
+
+    # === COUNTS ===
+    folders = safe_count_dirs(safe_base_path)
+    files = safe_count_files(safe_base_path)
+    uploads = 0
+    try:
+        if os.path.exists(config["cache_file"]):
+            with open(config["cache_file"], "r") as cf:
+                uploads = len(cf.readlines())
+    except Exception as e:
+        st.warning(f"⚠️ Could not read cache file: {e}")
+
     channels = df_log["Channel"].nunique() if not df_log.empty else 0
+
+    # folders = len(os.listdir(base_path)) if os.path.exists(base_path) else 0
+    # files = sum(len(f) for _, _, f in os.walk(base_path)) if os.path.exists(base_path) else 0
+    # uploads = len(open(config["cache_file"]).readlines()) if os.path.exists(config["cache_file"]) else 0
+    # channels = df_log["Channel"].nunique() if not df_log.empty else 0
 
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("📁 Total Folders", folders)
