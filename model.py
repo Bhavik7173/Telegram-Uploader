@@ -14,7 +14,7 @@ from PIL import Image
 # import pillow_heif
 import tempfile
 
-base_path = st.text_input("📁 Enter Folder Base Path", value="D:/TeraBoxDownload/Telegram/Telegram Upload/Folder Seperation/"),
+base_path = st.text_input("📁 Enter Folder Base Path", value="D:/TeraBoxDownload/Telegram"),
 
 # === Config ===
 config = {
