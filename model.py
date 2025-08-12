@@ -2,8 +2,6 @@
 
 import os
 import shutil
-
-import streamlit as st
 from datetime import datetime, date
 from telethon import TelegramClient
 from telethon.errors import FloodWaitError
@@ -14,15 +12,13 @@ from PIL import Image
 # import pillow_heif
 import tempfile
 
-base_path = st.text_input("📁 Enter Folder Base Path", value="D:/TeraBoxDownload/Telegram"),
-
 # === Config ===
 config = {
     "api_id": int(os.getenv("TELEGRAM_API_ID")),
     "api_hash": os.getenv("TELEGRAM_API_HASH"),
     "phone": os.getenv("TELEGRAM_PHONE"),
     "session_name": "latest_session.session",
-    # "base_path": st.text_input("📁 Enter Folder Base Path", value="D:/TeraBoxDownload/Telegram/Telegram Upload/Folder Seperation/"),
+    "base_path": "D:/TeraBoxDownload/Story Saver",
     "log_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/upload_log.csv",
     "temp_log_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/temp_upload_log.csv",
     "cache_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/uploaded_cache.txt",
