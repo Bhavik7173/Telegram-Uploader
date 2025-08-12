@@ -5,7 +5,7 @@ from datetime import datetime, date
 from telethon import TelegramClient
 from telethon.errors import FloodWaitError
 from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
-from model import config, filter_files,convert_to_jpg
+from model import config, filter_files,convert_to_jpg,base_path
 import streamlit as st
 
 # === SUPPORTED TYPES ===
@@ -38,7 +38,7 @@ async def handle_upload(df_upload, mode, filter_method="None", filter_params=Non
             logs.append(f"❌ Invalid folder name at row {index + 2}")
             continue
 
-        folder = folder_raw if os.path.isabs(folder_raw) else os.path.join(config["base_path"], folder_raw)
+        folder = folder_raw if os.path.isabs(folder_raw) else os.path.join(base_path, folder_raw)
         if not os.path.exists(folder):
             logs.append(f"❌ Folder not found: {folder}")
             continue

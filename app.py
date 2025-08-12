@@ -5,7 +5,7 @@ import plotly.express as px
 import os, asyncio, shutil, time, hashlib
 from controller import send_mobile_files,handle_upload, download_media_from_channel
 from datetime import datetime, date, timedelta
-from model import config, load_metrics, load_logs
+from model import config, load_metrics, load_logs,base_path
 import re
 
 def clean_folder_name(name):
@@ -40,8 +40,8 @@ else:
 if nav == "Dashboard":
     st.markdown("# 📊 Dashboard")
 
-    folders = len(os.listdir(config["base_path"])) if os.path.exists(config["base_path"]) else 0
-    files = sum(len(f) for _, _, f in os.walk(config["base_path"])) if os.path.exists(config["base_path"]) else 0
+    folders = len(os.listdir(base_path)) if os.path.exists(base_path) else 0
+    files = sum(len(f) for _, _, f in os.walk(base_path)) if os.path.exists(base_path) else 0
     uploads = len(open(config["cache_file"]).readlines()) if os.path.exists(config["cache_file"]) else 0
     channels = df_log["Channel"].nunique() if not df_log.empty else 0
 
@@ -81,7 +81,7 @@ elif nav == "Create Folders":
     st.subheader("Create Folders from Excel")
     with st.form("create_form"):
         excel_file = st.file_uploader("Upload Excel File", type=["xlsx"])
-        create_base = st.text_input("Base Path", value=config["base_path"])
+        create_base = st.text_input("Base Path", value=base_path)
         column_name = st.text_input("Column Name for Folder Names")
         submitted = st.form_submit_button("Create Folders")
         if submitted and excel_file and create_base and column_name:
