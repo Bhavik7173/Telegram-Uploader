@@ -8,6 +8,7 @@ from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
 from model import config, filter_files,convert_to_jpg
 import streamlit as st
 
+
 # === SUPPORTED TYPES ===
 MEDIA_GROUP_TYPES = ('.jpg', '.jpeg', '.png', '.mp4', '.mov', '.mkv', '.pdf', '.docx', '.heic', '.webp')
 OTHER_TYPES = ('.zip', '.rar', '.7z', '.txt', '.xls', '.ppt', '.exe')
