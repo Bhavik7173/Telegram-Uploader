@@ -7,11 +7,6 @@ from controller import send_mobile_files,handle_upload, download_media_from_chan
 from datetime import datetime, date, timedelta
 from model import config, load_metrics, load_logs
 import re
-import cv2
-import mediapipe as mp
-from PIL import Image
-import numpy as np
-import io
 
 def clean_folder_name(name):
     # Remove characters not allowed in Windows file/folder names
@@ -25,7 +20,7 @@ st.set_page_config(page_title="Telegram Dashboard", layout="wide")
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/2111/2111646.png", width=64)
     st.title("Telegram Dashboard")
-    nav = st.radio("Menu", ["Dashboard", "Face Detection", "Create Folders", "Separate Files", "Uploads", "Mobile Upload", "Download Media", "Folder Inspector", "Excel Sheet Manager", "Analytics", "Logs"])
+    nav = st.radio("Menu", ["Dashboard", "Create Folders", "Separate Files", "Uploads", "Mobile Upload", "Download Media", "Folder Inspector", "Excel Sheet Manager", "Analytics", "Logs"])
     st.markdown("---")
     st.button("Settings")
     st.button("Help")
@@ -81,54 +76,6 @@ if nav == "Dashboard":
         st.dataframe(top_df.head(5), use_container_width=True)
     else:
         st.info("No upload log yet.")
-
-elif nav == "Face Detection":
-    st.header("👤 Face / People Detection")
-
-    uploaded_files = st.file_uploader("Upload images", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
-
-    if uploaded_files:
-
-
-        mp_face = mp.solutions.face_detection
-        mp_pose = mp.solutions.pose
-
-        os.makedirs("DetectedFaces", exist_ok=True)
-        os.makedirs("DetectedPeople", exist_ok=True)
-
-        for file in uploaded_files:
-            # Read image
-            image = Image.open(file).convert("RGB")
-            img_array = np.array(image)
-
-            st.image(image, caption=f"Original: {file.name}", use_container_width=True)
-
-            # ---- FACE DETECTION ----
-            with mp_face.FaceDetection(model_selection=1, min_detection_confidence=0.5) as face_det:
-                results = face_det.process(cv2.cvtColor(img_array, cv2.COLOR_RGB2BGR))
-
-                if results.detections:
-                    st.success(f"✅ {len(results.detections)} face(s) detected in {file.name}")
-                    for i, det in enumerate(results.detections):
-                        bbox = det.location_data.relative_bounding_box
-                        h, w, _ = img_array.shape
-                        x, y, bw, bh = int(bbox.xmin * w), int(bbox.ymin * h), int(bbox.width * w), int(bbox.height * h)
-                        face_crop = img_array[y:y+bh, x:x+bw]
-                        face_path = f"DetectedFaces/face_{i}_{file.name}"
-                        if face_crop.size > 0:
-                            cv2.imwrite(face_path, cv2.cvtColor(face_crop, cv2.COLOR_RGB2BGR))
-                            st.image(face_crop, caption=f"Face {i+1}")
-
-            # ---- PEOPLE DETECTION ----
-            with mp_pose.Pose(static_image_mode=True) as pose:
-                results = pose.process(cv2.cvtColor(img_array, cv2.COLOR_RGB2BGR))
-                if results.pose_landmarks:
-                    st.info(f"👥 Person detected in {file.name}")
-                    person_path = f"DetectedPeople/{file.name}"
-                    cv2.imwrite(person_path, cv2.cvtColor(img_array, cv2.COLOR_RGB2BGR))
-                    st.image(img_array, caption="Detected Person")
-
-
 
 elif nav == "Create Folders":
     st.subheader("Create Folders from Excel")
