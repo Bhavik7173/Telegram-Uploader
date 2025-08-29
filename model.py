@@ -21,7 +21,7 @@ config = {
     "api_hash": '934fe7edfed764fed5963fcac8266e85',
     "phone": '+4915566214361',
     "session_name": "latest_session.session",
-    "base_path": "D:/TeraBoxDownload/Story Saver",
+    "base_path": "D:\TeraBoxDownload\Telegram\Telegram Upload\Files\Story",
     "log_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/upload_log.csv",
     "temp_log_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/temp_upload_log.csv",
     "cache_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/uploaded_cache.txt",
