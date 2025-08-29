@@ -171,3 +171,6 @@ cryptography==42.0.7
 moviepy==1.0.3
 imageio==2.34.1
 imageio-ffmpeg==0.4.8
+opencv-python
+mediapipe
+face-recognition

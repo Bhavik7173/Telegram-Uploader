@@ -14,9 +14,12 @@ import tempfile
 
 # === Config ===
 config = {
-    "api_id": int(os.getenv("TELEGRAM_API_ID")),
-    "api_hash": os.getenv("TELEGRAM_API_HASH"),
-    "phone": os.getenv("TELEGRAM_PHONE"),
+    # "api_id": int(os.getenv("TELEGRAM_API_ID")),
+    # "api_hash": os.getenv("TELEGRAM_API_HASH"),
+    # "phone": os.getenv("TELEGRAM_PHONE"),
+    "api_id": 27644731,
+    "api_hash": '934fe7edfed764fed5963fcac8266e85',
+    "phone": '+4915566214361',
     "session_name": "latest_session.session",
     "base_path": "D:/TeraBoxDownload/Story Saver",
     "log_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/upload_log.csv",
