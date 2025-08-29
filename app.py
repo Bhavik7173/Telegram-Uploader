@@ -7,6 +7,11 @@ from controller import send_mobile_files,handle_upload, download_media_from_chan
 from datetime import datetime, date, timedelta
 from model import config, load_metrics, load_logs
 import re
+import cv2
+import mediapipe as mp
+from PIL import Image
+import numpy as np
+import io
 
 def clean_folder_name(name):
     # Remove characters not allowed in Windows file/folder names
@@ -83,11 +88,7 @@ elif nav == "Face Detection":
     uploaded_files = st.file_uploader("Upload images", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
     if uploaded_files:
-        import cv2
-        import mediapipe as mp
-        from PIL import Image
-        import numpy as np
-        import io
+
 
         mp_face = mp.solutions.face_detection
         mp_pose = mp.solutions.pose
