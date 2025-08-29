@@ -13,6 +13,7 @@ from PIL import Image
 import tempfile
 
 # === Config ===
+base_path="D:/TeraBoxDownload/Telegram/Telegram Upload/Files"
 config = {
     # "api_id": int(os.getenv("TELEGRAM_API_ID")),
     # "api_hash": os.getenv("TELEGRAM_API_HASH"),
