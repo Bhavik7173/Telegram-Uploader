@@ -7,7 +7,9 @@ from controller import send_mobile_files,handle_upload, download_media_from_chan
 from datetime import datetime, date, timedelta
 from model import config, load_metrics, load_logs
 import re
+# from dotenv import load_dotenv
 
+# load_dotenv()
 def clean_folder_name(name):
     # Remove characters not allowed in Windows file/folder names
     return re.sub(r'[<>:"/\\|?*\n\r\t]', '', name).strip()
@@ -174,8 +176,17 @@ elif nav == "Uploads":
                 df_upload = pd.read_excel(excel_file)
                 if "Channel Link" in df_upload.columns and "Actress" in df_upload.columns:
                     logs = asyncio.run(handle_upload(df_upload, mode=upload_type, filter_method=filter_method, filter_params=filter_params))
+                    # for log in logs:
+                    #     st.write(log)
                     for log in logs:
-                        st.write(log)
+                        if log.startswith("✅"):
+                            st.success(log)
+                        elif log.startswith("❌"):
+                            st.error(log)
+                        elif log.startswith("⏳"):
+                            st.warning(log)
+                        else:
+                            st.write(log)
                 else:
                     st.error("Missing required columns in Excel: 'Channel Link' and 'Actress'")
                     
