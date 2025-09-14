@@ -1,9 +1,9 @@
 import asyncio
 from telethon import TelegramClient
 
-api_id = 27644731
-api_hash = '934fe7edfed764fed5963fcac8266e85'
-phone = '+4915566214361'
+api_id = 24244805
+api_hash = '8cf2f233f46fbdd89440589018a79feb'
+phone = '+919327710301'
 session_name = "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/session/latest_session.session"
 
 
