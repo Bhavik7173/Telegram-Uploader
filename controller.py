@@ -33,7 +33,8 @@ async def handle_upload(df_upload, mode, filter_method="None", filter_params=Non
             import streamlit as st
             password = st.text_input("🔑 Enter your Telegram 2FA Password", type="password")
         await client.sign_in(password=password)
-    st.success("✅ Logged into Telegram")
+    logs.append("✅ Logged into Telegram")
+
 
     uploaded = set()
     if os.path.exists(config["cache_file"]):
