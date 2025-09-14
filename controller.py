@@ -5,6 +5,7 @@ from datetime import datetime, date
 from telethon import TelegramClient
 from telethon.errors import FloodWaitError
 from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
+from telethon.errors import SessionPasswordNeededError
 from model import config, filter_files,convert_to_jpg
 import streamlit as st
 
@@ -23,7 +24,15 @@ async def handle_upload(df_upload, mode, filter_method="None", filter_params=Non
     logs = []
     filter_params = filter_params or {}
     client = TelegramClient(session_path, config["api_id"], config["api_hash"])
-    await client.start(phone=config["phone"])
+    try:
+        await client.start(phone=config["phone"])
+    except SessionPasswordNeededError:
+        # If user has 2FA password enabled
+        password = os.getenv("TELEGRAM_PASSWORD")  # load from environment variable
+        if not password:
+            import streamlit as st
+            password = st.text_input("🔑 Enter your Telegram 2FA Password", type="password")
+        await client.sign_in(password=password)
     st.success("✅ Logged into Telegram")
 
     uploaded = set()
@@ -157,7 +166,15 @@ async def handle_upload(df_upload, mode, filter_method="None", filter_params=Non
 async def send_mobile_files(channel_link, uploaded_files, st, config):
     logs = []
     client = TelegramClient(config["session_name"] + "_mobile", config["api_id"], config["api_hash"])
-    await client.start(phone=config["phone"])
+    try:
+        await client.start(phone=config["phone"])
+    except SessionPasswordNeededError:
+        # If user has 2FA password enabled
+        password = os.getenv("TELEGRAM_PASSWORD")  # load from environment variable
+        if not password:
+            import streamlit as st
+            password = st.text_input("🔑 Enter your Telegram 2FA Password", type="password")
+        await client.sign_in(password=password)
     try:
         entity = await client.get_entity(channel_link)
     except Exception as e:
@@ -180,7 +197,15 @@ async def download_media_from_channel(channel_username, save_path, st, config):
     os.makedirs(save_path, exist_ok=True)
     downloaded = 0
     client = TelegramClient(config["session_name"] + '_dl', config["api_id"], config["api_hash"])
-    await client.start(phone=config["phone"])
+    try:
+        await client.start(phone=config["phone"])
+    except SessionPasswordNeededError:
+        # If user has 2FA password enabled
+        password = os.getenv("TELEGRAM_PASSWORD")  # load from environment variable
+        if not password:
+            import streamlit as st
+            password = st.text_input("🔑 Enter your Telegram 2FA Password", type="password")
+        await client.sign_in(password=password)
     entity = await client.get_entity(channel_username)
     async for message in client.iter_messages(entity):
         if message.media:
