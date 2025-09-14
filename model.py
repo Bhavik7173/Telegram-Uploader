@@ -12,9 +12,16 @@ from PIL import Image
 # import pillow_heif
 import tempfile
 
-
 # === Dynamic Base Directory (project root) ===
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+BASE_DIR = os.getenv("BASE_PATH")
+
 
 config = {
     "api_id": int(os.getenv("TELEGRAM_API_ID", "0")),

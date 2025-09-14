@@ -7,9 +7,7 @@ from controller import send_mobile_files,handle_upload, download_media_from_chan
 from datetime import datetime, date, timedelta
 from model import config, load_metrics, load_logs
 import re
-# from dotenv import load_dotenv
 
-# load_dotenv()
 def clean_folder_name(name):
     # Remove characters not allowed in Windows file/folder names
     return re.sub(r'[<>:"/\\|?*\n\r\t]', '', name).strip()
