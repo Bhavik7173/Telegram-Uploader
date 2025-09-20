@@ -8,17 +8,23 @@ from telethon.tl.types import DocumentAttributeFilename, MessageMediaPhoto
 from telethon.errors import SessionPasswordNeededError
 from model import config, filter_files,convert_to_jpg
 import streamlit as st
-
+from dotenv import load_dotenv
 
 # === SUPPORTED TYPES ===
 MEDIA_GROUP_TYPES = ('.jpg', '.jpeg', '.png', '.mp4', '.mov', '.mkv', '.pdf', '.docx', '.heic', '.webp')
 OTHER_TYPES = ('.zip', '.rar', '.7z', '.txt', '.xls', '.ppt', '.exe')
 SUPPORTED_EXTENSIONS = MEDIA_GROUP_TYPES + OTHER_TYPES
 
-session_name = config["session_name"]
-session_folder = os.path.join(os.getcwd(), "session")
-os.makedirs(session_folder, exist_ok=True)
-session_path = os.path.join(session_folder, session_name)
+# session_name = config["session_name"]
+# session_folder = os.path.join(os.getcwd(), "session")
+
+load_dotenv()
+BASE_PATH = os.getenv("BASE_PATH")
+
+# Ensure folder exists
+os.makedirs(BASE_PATH, exist_ok=True)
+
+session_path = os.path.join(BASE_PATH, "my_session.session")
 
 async def handle_upload(df_upload, mode, filter_method="None", filter_params=None):
     logs = []
