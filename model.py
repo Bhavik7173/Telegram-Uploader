@@ -16,32 +16,42 @@ import tempfile
 # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
 
-BASE_DIR = os.getenv("BASE_PATH")
+# BASE_DIR = os.getenv("BASE_PATH")
 
 
 config = {
-    "api_id": int(os.getenv("TELEGRAM_API_ID", "0")),
-    "api_hash": os.getenv("TELEGRAM_API_HASH", ""),
-    "phone": os.getenv("TELEGRAM_PHONE", ""),
-    "session_name": os.path.join(BASE_DIR, "session", "latest_session.session"),
-    "base_path": os.getenv("BASE_PATH", os.path.join(BASE_DIR, "data")),   # default "data" folder
-    "log_file": os.path.join(BASE_DIR, "logs", "upload_log.csv"),
+    # "api_id": int(os.getenv("TELEGRAM_API_ID", "0")),
+    # "api_hash": os.getenv("TELEGRAM_API_HASH", ""),
+    # "phone": os.getenv("TELEGRAM_PHONE", ""),
+    "api_id": 27644731,
+    "api_hash": "934fe7edfed764fed5963fcac8266e85",
+    "phone": "+4915566214361",
+    # # "session_name": os.path.join(BASE_DIR, "session", "latest_session.session"),
+    # # "base_path": os.getenv("BASE_PATH", os.path.join(BASE_DIR, "data")),   # default "data" folder
+    # # "log_file": os.path.join(BASE_DIR, "logs", "upload_log.csv"),
+    # "temp_log_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/temp_upload_log.csv",
+    # # "cache_file": os.path.join(BASE_DIR, "logs", "uploaded_cache.txt"),
+    # "temp_cache_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/temp_uploaded_cache.txt"
+
+    "session_name": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/session/latest_session.session",
+    "base_path": "D:/TeraBoxDownload/Telegram/Telegram Upload/Files",   # default "data" folder
     "temp_log_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/temp_upload_log.csv",
-    "cache_file": os.path.join(BASE_DIR, "logs", "uploaded_cache.txt"),
+    "log_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/temp_upload_log.csv",
+    "cache_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/uploaded_cache.txt",
     "temp_cache_file": "F:/Telegram Dashboard/telegram_dashboard/Telegram-Uploader/Log File/temp_uploaded_cache.txt"
 }
 
-# Make sure required directories exist
-for path in [
-    os.path.dirname(config["session_name"]),
-    os.path.dirname(config["log_file"]),
-    config["base_path"]
-]:
-    os.makedirs(path, exist_ok=True)
+# # Make sure required directories exist
+# for path in [
+#     os.path.dirname(config["session_name"]),
+#     os.path.dirname(config["log_file"]),
+#     config["base_path"]
+# ]:
+#     os.makedirs(path, exist_ok=True)
 
 # === Helper Functions ===
 def load_metrics(base_path, cache_file):
